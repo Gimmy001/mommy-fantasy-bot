@@ -1,21 +1,24 @@
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
+from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters
 
-TOKEN = "8354991831:AAF9JZzmtMTI-YscEuQXNPNgB8MODaiQM1Q"  # Replace this
-
+# Mommy's welcome message
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Hello baby, Mommy Desire is ready for your naughty chats 😘")
+    await update.message.reply_text("Beta, aaj sirf feel nahi… real pleasure milega 😉")
 
-async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text.lower()
-    if "kiss" in text:
-        await update.message.reply_text("Mmmuah 😚 Mommy's lips are all yours baby...")
-    else:
-        await update.message.reply_text("Mommy is listening, tell me more... 😉")
+# Mommy's reply to every message
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_message = update.message.text.lower()
 
-app = ApplicationBuilder().token(TOKEN).build()
+    # Sample seductive reply (can be upgraded later)
+    reply = "Mmm 😘 mummy abhi sirf text me feel kara rahi hai... bold surprise ke liye ready rehna 💋"
+    await update.message.reply_text(reply)
 
-app.add_handler(CommandHandler("start", start))
-app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, reply))
+# Main setup
+if __name__ == '__main__':
+    app = ApplicationBuilder().token("8354991831:AAF9JZzmtMTI-YscEuQXNPNgB8MODaiQM1Q").build()
 
-app.run_polling()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+
+    print("Mommy Desire bot is running... 😈")
+    app.run_polling()
